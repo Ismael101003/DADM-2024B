@@ -11,16 +11,14 @@ const newitemPriority = ref('low');
 </script>
 
 <template>
-  <H1>
-    <i class="material-icons shopping-cart-icon"> local_mall</i>
-    {{ header }}
-  </H1>
-  <input v-model="newItem" type="text" placeholder="Agregar producto">
-  <label><input type="radio" value="low" v-model="newitemPriority"> baja</label>
-  <label><input type="radio" value="hight" v-model="newitemPriority"> Alta</label>    
-    <ul>
-      <li v-for="item in items" :key="item">📬 {{ item.label }}</li>
-  </ul>
+  <h1> <i class="material-icons shopping-cart-icon">local_mall</i> {{ header }}</h1>
+<input type="text" placeholder="Add Item" v-model="newItem">
+{{ newItem }}
+<ul>
+  <li v-for="{ id, label } in items" v-bind:key="id">
+    🔹 {{ label }}
+  </li>
+</ul>
     
 </template>
 

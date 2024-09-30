@@ -12,7 +12,10 @@ const newitemPriority = ref('low');
 
 <template>
   <h1> <i class="material-icons shopping-cart-icon">local_mall</i> {{ header }}</h1>
-<input type="text" placeholder="Add Item" v-model="newItem">
+<input type="text" placeholder="Add Item" v-model.trim="newItem">
+<!-- Radio Buttons -->
+<label><input type="radio" v-model="newItemPriority" value="low">Low</label>
+<label><input type="radio" v-model="newItemPriority" value="high">High</label>
 {{ newItem }}
 <ul>
   <li v-for="{ id, label } in items" v-bind:key="id">

@@ -1,11 +1,21 @@
 <script setup>
 import { ref } from 'vue'
 const header = ref('App Lista de compras')
+//Items
+//Item model
+
 const items = ref([
   { id: 1, label: '10 bolillos' },
   { id: 2, label: '1 lata de frijoles' },
-  { id: 3, label: '2 lata de atún' }
+  { id: 3, label: '2 lata de atún' },
+  { id: 4, label: 'Preentreno' }
 ])
+//item metod
+const saveItem = () => {
+  items.value.push({ id: items.value.length + 1, label: newItem.value })
+  newItem.value='';
+}
+
 const newItem = ref('')
 const newItemHighPriority = ref(false)
 </script>
@@ -13,10 +23,8 @@ const newItemHighPriority = ref(false)
 <template>
   <h1><i class="material-icons shopping-cart-icon">local_mall</i> {{ header }}</h1>
 
-  <form
-    v-on:submit.prevent="items.push({ id: items.length + 1, label: newItem })"
-    class="add-item fomr"
-  >
+  <form class="add-item form"
+   v-on:submit.prevent="saveItem">
     <!-- entrada de texto -->
     <input v-model.trim="newItem" type="text" placeholder="Add Item" />
     <!-- Caja de seleccion de prioridad -->

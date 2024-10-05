@@ -1,5 +1,5 @@
 <script setup>
-import { onActivated, ref } from 'vue'
+import { ref } from 'vue'
 const header = ref('App Lista de compras')
 //Items
 //Item model
@@ -29,10 +29,21 @@ const ActivatedEdition = (activated) => {
 
 <template>
   <div class="header">
-    <h1><i class="material-icons shopping-cart-icon"> local_mall </i> {{ header }}</h1>
+    <h1>
+    <i class="material-icons shopping-cart-icon"> local_mall </i> 
+    {{ header }} 
+    </h1>
     <button v-if="editing" class="btn" @click="ActivatedEdition(false)">Cancelar</button>
     <button v-else class="btn btn-primary" @click="ActivatedEdition(true)">Agregar articulo</button>
   </div>
+
+  <!--colocando un hiperlink-->
+  <a :href="newItem.trim() === '' ? 'https://www.google.com' : 'https://' + newItem" target="_blank">
+    {{ newItem.trim() === '' ? 'GOOGLE' : newItem }}
+</a>
+
+
+
 
   <form class="add-item form" v-if="editing" v-on:submit.prevent="saveItem">
     <!-- entrada de texto -->
@@ -50,6 +61,7 @@ const ActivatedEdition = (activated) => {
     <li v-for="{ id, label } in items" v-bind:key="id">🔹 {{ label }}</li>
   </ul>
   <p v-if="items.length === 0">🥀No hay elementos en la lista🥀</p>
+  
 </template>
 
 <style scoped>

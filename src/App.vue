@@ -5,11 +5,11 @@ const header = ref('App Lista de compras')
 //Item model
 
 const items = ref([
-  { id: 1, label: '10 bolillos' },
-  { id: 2, label: '1 lata de frijoles' },
-  { id: 3, label: '2 lata de atún' },
-  { id: 4, label: 'Preentreno' },
-  { id: 5, label: 'Mancuernas' }
+  { id: 1, label: '10 bolillos',purchased: false, priority : true },
+  { id: 2, label: '1 lata de frijoles',purchased: false, priority : true},
+  { id: 3, label: '2 lata de atún',purchased: true, priority : false},
+  { id: 4, label: '1 Preentreno' ,purchased: true, priority : true},
+  { id: 5, label: '2 Mancuernas' ,purchased: false, priority : true}
 ])
 //item metod
 const saveItem = () => {
@@ -30,20 +30,14 @@ const ActivatedEdition = (activated) => {
 <template>
   <div class="header">
     <h1>
-    <i class="material-icons shopping-cart-icon"> local_mall </i> 
-    {{ header }} 
+      <i class="material-icons shopping-cart-icon"> local_mall </i>
+      {{ header }}
     </h1>
     <button v-if="editing" class="btn" @click="ActivatedEdition(false)">Cancelar</button>
     <button v-else class="btn btn-primary" @click="ActivatedEdition(true)">Agregar articulo</button>
   </div>
 
   <!--colocando un hiperlink-->
-  <a :href="newItem.trim() === '' ? 'https://www.google.com' : 'https://' + newItem" target="_blank">
-    {{ newItem.trim() === '' ? 'GOOGLE' : newItem }}
-</a>
-
-
-
 
   <form class="add-item form" v-if="editing" v-on:submit.prevent="saveItem">
     <!-- entrada de texto -->
@@ -54,14 +48,18 @@ const ActivatedEdition = (activated) => {
       High Priority
     </label>
     <!-- Boton -->
-    <button class="btn btn-primary">Save Item</button>
+    <button :disabled="newItem.length === 0" class="btn btn-primary">Save Item</button>
   </form>
 
   <ul>
-    <li v-for="{ id, label } in items" v-bind:key="id">🔹 {{ label }}</li>
+    <li 
+    v-for="{ id, label, purchased, priority } in items" 
+    v-bind:key="id"
+    class="amazing"
+    v-bind:class="{priority: priority, strikeout: purchased}"> {{priority ? "🔥" : "🔹"}} {{ label }}
+  </li>
   </ul>
   <p v-if="items.length === 0">🥀No hay elementos en la lista🥀</p>
-  
 </template>
 
 <style scoped>
